@@ -28,8 +28,6 @@ app.post("/webhook", (req, res) => {
   res.json({ ok: true });
 });
 
-const path = require("path");
-
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
