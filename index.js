@@ -1,44 +1,44 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 
 app.use(express.json());
+app.use(express.static("public"));
 
-// Aquí guardamos las señales en memoria
 let señales = [];
+let ultimaSeñal = "";
 
-// Webhook (recibe señales de TradingView)
+// === WEBHOOK ===
 app.post("/webhook", (req, res) => {
-    console.log("Señal recibida:", req.body);
+    const { symbol, signal } = req.body;
 
-    if (req.body.signal) {
+    if (!symbol || !signal) {
+        return res.status(400).send("Datos inválidos");
+    }
+
+    const nueva = symbol + signal;
+
+    if (nueva !== ultimaSeñal) {
+        ultimaSeñal = nueva;
+
         señales.push({
-            signal: req.body.signal,
+            symbol,
+            signal,
             time: new Date().toLocaleString()
         });
+
+        if (señales.length > 50) señales.shift();
+
+        console.log("Nueva señal:", symbol, signal);
     }
 
     res.send("OK");
 });
 
-// Página web para ver señales
-app.get("/", (req, res) => {
-    let html = `
-    <h1>📊 Señales en Vivo</h1>
-    <ul>
-    `;
-
-    señales.slice().reverse().forEach(s => {
-        html += `<li>${s.time} → ${s.signal}</li>`;
-    });
-
-    html += "</ul>";
-
-    res.send(html);
-});
-
-// (Opcional) ver en formato JSON
+// === API ===
 app.get("/signals", (req, res) => {
     res.json(señales);
 });
 
+// === SERVIDOR ===
 app.listen(3000, () => console.log("Servidor corriendo"));
