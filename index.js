@@ -5,7 +5,7 @@ const app = express();
 
 app.use(express.json());
 
-// 🔥 Señales
+// 🔥 almacenamiento
 let signals = [];
 
 // 🔥 API
@@ -13,7 +13,7 @@ app.get("/signals", (req, res) => {
   res.json(signals);
 });
 
-// 🔥 WEBHOOK
+// 🔥 webhook
 app.post("/webhook", (req, res) => {
   const nueva = {
     symbol: req.body.symbol,
@@ -25,20 +25,19 @@ app.post("/webhook", (req, res) => {
 
   console.log("Nueva señal:", nueva);
 
-  res.send("ok");
+  res.json({ ok: true });
 });
 
-// 🔥 FRONTEND
-app.use(express.static(__dirname));
-
-// 🔥 RUTA RAÍZ (CLAVE PARA RAILWAY)
+// 🔥 ROOT (OBLIGATORIO)
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.send("SERVER OK");
 });
 
-const PORT = process.env.PORT || 8080;
+// 🔥 ESTÁTICOS
+app.use(express.static(path.join(__dirname)));
 
-// 🔥 IMPORTANTE: 0.0.0.0
+const PORT = process.env.PORT || 10000;
+
 app.listen(PORT, "0.0.0.0", () => {
   console.log("Servidor en puerto", PORT);
 });
