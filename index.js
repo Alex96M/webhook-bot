@@ -28,9 +28,10 @@ app.post("/webhook", (req, res) => {
   res.json({ ok: true });
 });
 
-// 🔥 ROOT (OBLIGATORIO)
+const path = require("path");
+
 app.get("/", (req, res) => {
-  res.send("SERVER OK");
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // 🔥 ESTÁTICOS
