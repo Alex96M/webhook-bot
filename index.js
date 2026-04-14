@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 });
 
 // 🔥 ESTÁTICOS
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(__dirname));
 
 const PORT = process.env.PORT || 10000;
 
