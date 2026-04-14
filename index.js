@@ -6,21 +6,14 @@ const app = express();
 app.use(express.json());
 
 // 🔥 Señales
-let signals = [
-  { symbol: "EURUSD", signal: "CALL", time: "10:00" }
-];
+let signals = [];
 
 // 🔥 API
 app.get("/signals", (req, res) => {
   res.json(signals);
 });
 
-// 🔥 API
-app.get("/signals", (req, res) => {
-  res.json(signals);
-});
-
-// 🔥 WEBHOOK (AQUÍ VA)
+// 🔥 WEBHOOK
 app.post("/webhook", (req, res) => {
   const nueva = {
     symbol: req.body.symbol,
@@ -35,17 +28,17 @@ app.post("/webhook", (req, res) => {
   res.send("ok");
 });
 
-// 🔥 Servir HTML correctamente
-app.use(express.static(path.join(__dirname)));
+// 🔥 FRONTEND
+app.use(express.static(__dirname));
 
-// 🔥 Ruta raíz obligatoria para Railway
+// 🔥 RUTA RAÍZ (CLAVE PARA RAILWAY)
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
 const PORT = process.env.PORT || 8080;
 
-// 🔥 MUY IMPORTANTE
+// 🔥 IMPORTANTE: 0.0.0.0
 app.listen(PORT, "0.0.0.0", () => {
   console.log("Servidor en puerto", PORT);
 });
