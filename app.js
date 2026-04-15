@@ -8,11 +8,12 @@ async function cargar() {
     data.slice().reverse().forEach(s => {
         html += `
         <div class="card">
-            <strong>${s.symbol}</strong><br>
+            <strong>📊 ${s.symbol}</strong><br>
+            ⏰ ${s.time}<br>
+            ⏳ Exp: 5m<br>
             <span class="${s.signal === "CALL" ? "call" : "put"}">
-                ${s.signal}
-            </span><br>
-            <small>${s.time}</small>
+                ${s.signal === "CALL" ? "📈 ARRIBA" : "📉 ABAJO"}
+            </span>
         </div>
         `;
     });
