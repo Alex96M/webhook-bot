@@ -18,7 +18,7 @@ app.post("/webhook", (req, res) => {
   const nueva = {
     symbol: req.body.symbol,
     signal: req.body.signal,
-    time: new Date().toLocaleTimeString()
+    time: req.body.time
   };
 
   signals.push(nueva);
