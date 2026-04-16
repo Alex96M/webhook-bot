@@ -1,6 +1,7 @@
 async function cargar() {
     const res = await fetch('/signals');
     const data = await res.json();
+    const hora = new Date(s.time).toLocaleTimeString();
 
     let html = "";
     let total = data.length;
@@ -9,7 +10,7 @@ async function cargar() {
         html += `
         <div class="card">
             <strong>📊 ${s.symbol}</strong><br>
-            ⏰ ${s.time}<br>
+            ⏰ ${hora}<br>
             ⏳ Exp: 5m<br>
             <span class="${s.signal === "CALL" ? "call" : "put"}">
                 ${s.signal === "CALL" ? "📈 ARRIBA" : "📉 ABAJO"}
