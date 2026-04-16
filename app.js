@@ -6,8 +6,8 @@ async function cargar() {
     let total = data.length;
 
     data.slice().reverse().forEach(s => {
-        html += `
         const hora = new Date(s.time).toLocaleTimeString();
+        html += `
         <div class="card">
             <strong>📊 ${s.symbol}</strong><br>
             ⏰ ${hora}<br>
