@@ -1,13 +1,13 @@
 async function cargar() {
     const res = await fetch('/signals');
     const data = await res.json();
-    const hora = new Date(s.time).toLocaleTimeString();
 
     let html = "";
     let total = data.length;
 
     data.slice().reverse().forEach(s => {
         html += `
+        const hora = new Date(s.time).toLocaleTimeString();
         <div class="card">
             <strong>📊 ${s.symbol}</strong><br>
             ⏰ ${hora}<br>
